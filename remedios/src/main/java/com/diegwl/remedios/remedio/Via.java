@@ -1,4 +1,4 @@
-package com.diegwl.remedios.controllers.remedio;
+package com.diegwl.remedios.remedio;
 
 public enum Via {
     ORAL, 
