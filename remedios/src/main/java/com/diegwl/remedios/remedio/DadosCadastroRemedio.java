@@ -1,9 +1,24 @@
 package com.diegwl.remedios.remedio;
 
-public record DadosCadastroRemedio(String nome,
-                                   Via via,
-                                   String lote,
-                                   String quantidade,
-                                   String validade,
-                                   Laboratorio laboratorio) {
+import jakarta.persistence.Enumerated;
+import jakarta.validation.constraints.Future;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.PositiveOrZero;
+
+import java.time.LocalDate;
+
+public record DadosCadastroRemedio(
+        @NotBlank
+        String nome,
+        @Enumerated
+        Via via,
+        @NotBlank
+        String lote,
+        @PositiveOrZero
+        int quantidade,
+        @Future
+        LocalDate validade,
+        @Enumerated
+        Laboratorio laboratorio) {
+
 }
