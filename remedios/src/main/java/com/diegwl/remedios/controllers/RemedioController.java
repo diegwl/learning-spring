@@ -1,13 +1,10 @@
 package com.diegwl.remedios.controllers;
 
-import com.diegwl.remedios.remedio.Remedio;
-import com.diegwl.remedios.remedio.RemedioRepository;
+import com.diegwl.remedios.remedio.*;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import com.diegwl.remedios.remedio.DadosCadastroRemedio;
 
 import java.util.List;
 
@@ -25,10 +22,16 @@ public class RemedioController {
         repository.save(new Remedio(dados));
     }
 
-    @GetMapping
+    @GetMapping("/")
     public List<DadosListagemRemedio> listar() {
-        return repository.findAll();
+        return repository.findAll().stream().map(DadosListagemRemedio::new).toList();
     }
 
+    @PutMapping("/")
+    @Transactional
+    public void atualizar(@RequestBody @Valid DadosUpdateRemedio dados) {
+        var remedio = repository.getReferenceById(dados.id());
+        remedio.atualizarInformacoes(dados);
+    }
 
 }

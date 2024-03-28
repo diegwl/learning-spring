@@ -1,14 +1,14 @@
 package com.diegwl.remedios.remedio;
 
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
 import lombok.*;
 
 import java.time.LocalDate;
 
 @Table(name = "Remedio")
 @Entity(name = "remedios")
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
@@ -30,8 +30,20 @@ public class Remedio {
     @Enumerated(EnumType.STRING)
     private Via via;
     private String lote;
-    private int quantidade;
+    private Integer quantidade;
     private LocalDate validade;
     @Enumerated(EnumType.STRING)
     private Laboratorio laboratorio;
+
+    public void atualizarInformacoes(@Valid DadosUpdateRemedio dados) {
+        if (dados.nome() != null) {
+            this.nome = dados.nome();
+        }
+        if (dados.via() != null) {
+            this.via = dados.via();
+        }
+        if (dados.quantidade() != null) {
+            this.quantidade = dados.quantidade();
+        }
+    }
 }

@@ -15,7 +15,7 @@ public record DadosCadastroRemedio(
         @NotBlank
         String lote,
         @PositiveOrZero
-        int quantidade,
+        Integer quantidade,
         @Future
         LocalDate validade,
         @Enumerated
