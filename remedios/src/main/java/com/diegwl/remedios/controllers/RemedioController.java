@@ -24,7 +24,7 @@ public class RemedioController {
 
     @GetMapping("/")
     public List<DadosListagemRemedio> listar() {
-        return repository.findAll().stream().map(DadosListagemRemedio::new).toList();
+        return repository.findAllByAtivoTrue().stream().map(DadosListagemRemedio::new).toList();
     }
 
     @PutMapping("/")
@@ -34,9 +34,28 @@ public class RemedioController {
         remedio.atualizarInformacoes(dados);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{id}/")
     @Transactional
     public void excluir(@PathVariable @Valid Long id) {
         repository.deleteById(id);
+    }
+
+    @DeleteMapping("inativar/{id}/")
+    @Transactional
+    public void inativar(@PathVariable @Valid Long id) {
+        var remedio = repository.getReferenceById(id);
+        remedio.inativar();
+    }
+
+    @GetMapping("/inativos/")
+    public List<DadosListagemRemedio> listarInativos() {
+        return repository.findAllByAtivoFalse().stream().map(DadosListagemRemedio::new).toList();
+    }
+
+    @PutMapping("ativar/{id}/")
+    @Transactional
+    public void ativar(@PathVariable @Valid Long id) {
+        var remedio = repository.getReferenceById(id);
+        remedio.ativar();
     }
 }

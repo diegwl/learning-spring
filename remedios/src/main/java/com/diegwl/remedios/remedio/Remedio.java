@@ -15,6 +15,7 @@ import java.time.LocalDate;
 public class Remedio {
 
     public Remedio(DadosCadastroRemedio dados) {
+        this.ativo=true;
         this.nome=dados.nome();
         this.via=dados.via();
         this.lote=dados.lote();
@@ -34,6 +35,7 @@ public class Remedio {
     private LocalDate validade;
     @Enumerated(EnumType.STRING)
     private Laboratorio laboratorio;
+    private boolean ativo;
 
     public void atualizarInformacoes(@Valid DadosUpdateRemedio dados) {
         if (dados.nome() != null) {
@@ -45,5 +47,13 @@ public class Remedio {
         if (dados.quantidade() != null) {
             this.quantidade = dados.quantidade();
         }
+    }
+
+    public void inativar() {
+        this.setAtivo(false);
+    }
+
+    public void ativar() {
+        this.setAtivo(true);
     }
 }
