@@ -34,4 +34,9 @@ public class RemedioController {
         remedio.atualizarInformacoes(dados);
     }
 
+    @DeleteMapping("/{id}")
+    @Transactional
+    public void excluir(@PathVariable @Valid Long id) {
+        repository.deleteById(id);
+    }
 }
