@@ -1,6 +1,8 @@
 package com.diegwl.remedios.controllers;
 
+import com.diegwl.remedios.infra.TokenService;
 import com.diegwl.remedios.usuarios.DadosAutenticacao;
+import com.diegwl.remedios.usuarios.Usuario;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,12 +20,15 @@ public class AutenticacaoController {
     @Autowired
     private AuthenticationManager manager;
 
+    @Autowired
+    private TokenService tokenService;
+
     @PostMapping("/")
     public ResponseEntity<?> login(@RequestBody @Valid DadosAutenticacao dados) {
         var token = new UsernamePasswordAuthenticationToken(dados.login(), dados.senha());
         var authService = manager.authenticate(token);
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(tokenService.gerarToken((Usuario) authService.getPrincipal()));
     }
 
 }
