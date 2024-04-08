@@ -1,5 +1,6 @@
 package com.diegwl.remedios.controllers;
 
+import com.diegwl.remedios.infra.DadosTokenJWT;
 import com.diegwl.remedios.infra.TokenService;
 import com.diegwl.remedios.usuarios.DadosAutenticacao;
 import com.diegwl.remedios.usuarios.Usuario;
@@ -27,8 +28,9 @@ public class AutenticacaoController {
     public ResponseEntity<?> login(@RequestBody @Valid DadosAutenticacao dados) {
         var token = new UsernamePasswordAuthenticationToken(dados.login(), dados.senha());
         var authService = manager.authenticate(token);
+        var tokenJWT = tokenService.gerarToken((Usuario) authService.getPrincipal());
 
-        return ResponseEntity.ok(tokenService.gerarToken((Usuario) authService.getPrincipal()));
+        return ResponseEntity.ok(new DadosTokenJWT(tokenJWT));
     }
 
 }
