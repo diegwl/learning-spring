@@ -38,7 +38,7 @@ public class Remedio {
     private boolean ativo;
 
     public void atualizarInformacoes(@Valid DadosUpdateRemedio dados) {
-        if (dados.nome() != null) {
+        if (dados.nome() != null && !dados.nome().isBlank()) {
             this.nome = dados.nome();
         }
         if (dados.via() != null) {
