@@ -1,4 +1,9 @@
 package br.ets.feedback.model.informacoes.dtos;
 
-public record DadosInformacoes(String disciplina, String trilha, String faculdade, String turma) {
+import jakarta.validation.constraints.NotBlank;
+
+public record DadosInformacoes(@NotBlank String disciplina,
+                               @NotBlank String trilha,
+                               @NotBlank String faculdade,
+                               @NotBlank String turma) {
 }
