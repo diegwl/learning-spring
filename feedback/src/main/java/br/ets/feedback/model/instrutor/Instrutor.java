@@ -1,6 +1,7 @@
 package br.ets.feedback.model.instrutor;
 
 import br.ets.feedback.model.informacoes.Informacoes;
+import br.ets.feedback.model.instrutor.dtos.DadosAtualizacaoInstrutor;
 import br.ets.feedback.model.instrutor.dtos.DadosCadastroInstrutor;
 import br.ets.feedback.model.instrutor.enums.CursoEnum;
 import jakarta.persistence.*;
@@ -39,5 +40,23 @@ public class Instrutor {
         this.curso = dados.curso();
         this.informacoes = new Informacoes(dados.informacoes());
         this.ferias = dados.ferias();
+    }
+
+    public void atualizar(DadosAtualizacaoInstrutor dados) {
+        if (dados.nome() != null) {
+            this.nome = dados.nome();
+        }
+        if (dados.email() != null) {
+            this.email = dados.email();
+        }
+        if (dados.edv() != null) {
+            this.edv = dados.edv();
+        }
+        if (dados.curso() != null) {
+            this.curso = dados.curso();
+        }
+        if (dados.ferias() != null) {
+            this.ferias = dados.ferias();
+        }
     }
 }

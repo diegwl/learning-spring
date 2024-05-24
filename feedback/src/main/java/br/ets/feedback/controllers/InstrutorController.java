@@ -1,9 +1,11 @@
 package br.ets.feedback.controllers;
 
 import br.ets.feedback.model.instrutor.Instrutor;
+import br.ets.feedback.model.instrutor.dtos.DadosAtualizacaoInstrutor;
 import br.ets.feedback.model.instrutor.dtos.DadosCadastroInstrutor;
 import br.ets.feedback.model.instrutor.dtos.DadosListagemInstrutor;
 import br.ets.feedback.model.instrutor.repository.InstrutorRepository;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -22,6 +24,7 @@ public class InstrutorController {
     @Autowired
     private InstrutorRepository repository;
 
+    @Transactional
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
     public void cadastrar(@RequestBody @Valid DadosCadastroInstrutor dadosCadastroInstrutor) {
@@ -50,5 +53,12 @@ public class InstrutorController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
         repository.delete(instrutor.get());
+    }
+
+    @Transactional
+    @PutMapping
+    public void atualizar(DadosAtualizacaoInstrutor dados) {
+        var instrutor = repository.getReferenceById(dados.id());
+        instrutor.atualizar(dados);
     }
 }
