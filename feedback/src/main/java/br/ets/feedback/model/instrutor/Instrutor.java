@@ -30,6 +30,7 @@ public class Instrutor {
 
     @Embedded
     private Informacoes informacoes;
+    private Boolean ferias;
 
     public Instrutor(DadosCadastroInstrutor dados) {
         this.nome = dados.nome();
@@ -37,5 +38,6 @@ public class Instrutor {
         this.edv = dados.edv();
         this.curso = dados.curso();
         this.informacoes = new Informacoes(dados.informacoes());
+        this.ferias = dados.ferias();
     }
 }
