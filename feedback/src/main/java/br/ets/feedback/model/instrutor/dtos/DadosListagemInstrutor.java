@@ -8,8 +8,9 @@ public record DadosListagemInstrutor(Integer id,
                                     String email,
                                      String edv,
                                      CursoEnum curso,
-                                     Boolean ferias) {
+                                     Boolean ferias,
+                                     Boolean ativo) {
     public DadosListagemInstrutor(Instrutor instrutor) {
-        this(instrutor.getId(), instrutor.getNome(), instrutor.getEmail(), instrutor.getEdv(), instrutor.getCurso(), instrutor.getFerias());
+        this(instrutor.getId(), instrutor.getNome(), instrutor.getEmail(), instrutor.getEdv(), instrutor.getCurso(), instrutor.getFerias(), instrutor.getAtivo());
     }
 }

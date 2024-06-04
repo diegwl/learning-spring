@@ -32,6 +32,7 @@ public class Instrutor {
     @Embedded
     private Informacoes informacoes;
     private Boolean ferias;
+    private Boolean ativo;
 
     public Instrutor(DadosCadastroInstrutor dados) {
         this.nome = dados.nome();
@@ -40,6 +41,7 @@ public class Instrutor {
         this.curso = dados.curso();
         this.informacoes = new Informacoes(dados.informacoes());
         this.ferias = dados.ferias();
+        this.ativo = true;
     }
 
     public void atualizar(DadosAtualizacaoInstrutor dados) {
@@ -58,5 +60,16 @@ public class Instrutor {
         if (dados.ferias() != null) {
             this.ferias = dados.ferias();
         }
+        if (dados.informacoes() != null) {
+            this.informacoes.atualizar(dados.informacoes());
+        }
+    }
+
+    public void ativar() {
+        this.ativo = true;
+    }
+
+    public void desativar() {
+        this.ativo = false;
     }
 }

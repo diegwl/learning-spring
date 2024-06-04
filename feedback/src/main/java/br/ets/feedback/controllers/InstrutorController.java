@@ -34,7 +34,7 @@ public class InstrutorController {
 
     @GetMapping
     public Page<DadosListagemInstrutor> listar(@PageableDefault(size = 3, sort = {"id"}) Pageable pageable) {
-        return repository.findAll(pageable).map(DadosListagemInstrutor::new);
+        return repository.findAllByAtivoTrue(pageable).map(DadosListagemInstrutor::new);
     }
 
     @GetMapping("/{id}")
@@ -47,6 +47,7 @@ public class InstrutorController {
     }
 
     @DeleteMapping("/{id}")
+    @Transactional
     public void remover(@PathVariable Integer id) {
         var instrutor = repository.findById(id);
         if (instrutor.isEmpty()) {
@@ -55,10 +56,29 @@ public class InstrutorController {
         repository.delete(instrutor.get());
     }
 
-    @Transactional
     @PutMapping
-    public void atualizar(DadosAtualizacaoInstrutor dados) {
+    @Transactional
+    public void atualizar(@RequestBody @Valid DadosAtualizacaoInstrutor dados) {
         var instrutor = repository.getReferenceById(dados.id());
         instrutor.atualizar(dados);
+    }
+
+    @DeleteMapping("/inativar/{id}")
+    @Transactional
+    public void inativar(@PathVariable @Valid Integer id) {
+        var instrutor = (Instrutor) repository.getReferenceById(id);
+        instrutor.desativar();
+    }
+
+    @GetMapping("/inativos")
+    public Page<DadosListagemInstrutor> listarInativos(@PageableDefault(size = 3, sort = {"id"}) Pageable pageable) {
+        return repository.findAllByAtivoFalse(pageable).map(DadosListagemInstrutor::new);
+    }
+
+    @PutMapping("/ativar/{id}")
+    @Transactional
+    public void ativar(@PathVariable @Valid Integer id) {
+        var instrutor = (Instrutor) repository.getReferenceById(id);
+        instrutor.ativar();
     }
 }
