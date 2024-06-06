@@ -1,7 +1,7 @@
 package br.ets.feedback.model.instrutor.dtos;
 
 import br.ets.feedback.model.instrutor.Instrutor;
-import br.ets.feedback.model.instrutor.enums.CursoEnum;
+import br.ets.feedback.model.enums.CursoEnum;
 
 public record DadosListagemInstrutor(Integer id,
                                     String nome,
