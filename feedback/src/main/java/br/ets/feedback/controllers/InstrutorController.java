@@ -16,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 
@@ -29,11 +30,13 @@ public class InstrutorController {
     @Transactional
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
-    public ResponseEntity<DadosDetalhadosInstrutor> cadastrar(@RequestBody @Valid DadosCadastroInstrutor dadosCadastroInstrutor) {
+    public ResponseEntity<DadosDetalhadosInstrutor> cadastrar(@RequestBody @Valid DadosCadastroInstrutor dadosCadastroInstrutor, UriComponentsBuilder uriBuilder) {
         Instrutor instrutor = new Instrutor(dadosCadastroInstrutor);
         repository.save(instrutor);
 
-        return ResponseEntity.ok(new DadosDetalhadosInstrutor(instrutor));
+        var uri = uriBuilder.path("/instrutor/{id}").buildAndExpand(instrutor.getId()).toUri();
+
+        return ResponseEntity.created(uri).body(new DadosDetalhadosInstrutor(instrutor));
     }
 
     @GetMapping
