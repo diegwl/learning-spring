@@ -75,7 +75,7 @@ public class AprendizController {
     @DeleteMapping("/inativar/{id}")
     @Transactional
     public ResponseEntity<Aprendiz> inativar(@PathVariable @Valid Integer id) {
-        var aprendiz = repository.getReferenceById(id);
+        var aprendiz = repository.findByIdAndAtivoTrue(id);
         aprendiz.desativar();
         return ResponseEntity.noContent().build();
     }
@@ -89,7 +89,7 @@ public class AprendizController {
     @PutMapping("/ativar/{id}")
     @Transactional
     public ResponseEntity<Aprendiz> ativar(@PathVariable @Valid Integer id) {
-        var aprendiz = repository.getReferenceById(id);
+        var aprendiz = repository.findByIdAndAtivoFalse(id);
         aprendiz.ativar();
         return ResponseEntity.noContent().build();
     }

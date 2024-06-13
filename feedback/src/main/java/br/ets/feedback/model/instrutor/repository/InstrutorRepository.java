@@ -10,4 +10,7 @@ import java.util.List;
 public interface InstrutorRepository extends JpaRepository<Instrutor, Integer> {
     Page<Instrutor> findAllByAtivoTrue(Pageable pageable);
     Page<Instrutor> findAllByAtivoFalse(Pageable pageable);
+    Instrutor findByIdAndAtivoTrue(Integer id);
+
+    Instrutor findByIdAndAtivoFalse(Integer id);
 }
