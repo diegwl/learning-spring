@@ -12,7 +12,7 @@ public record DadosDetalhadosAprendiz(Integer id,
                                       CursoEnum curso,
                                       Boolean ferias,
                                       Boolean ativo,
-                                      InformacoesAprendiz informacoesInstrutor) {
+                                      InformacoesAprendiz informacoes) {
     public DadosDetalhadosAprendiz(Aprendiz aprendiz) {
         this(aprendiz.getId(), aprendiz.getNome(), aprendiz.getEmail(), aprendiz.getEdv(), aprendiz.getCurso(), aprendiz.getFerias(), aprendiz.getAtivo(), aprendiz.getInformacoes());
     }
