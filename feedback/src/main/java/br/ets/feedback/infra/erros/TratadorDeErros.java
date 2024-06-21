@@ -27,4 +27,9 @@ public class TratadorDeErros {
             this(erro.getField(), erro.getDefaultMessage());
         }
     }
+
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<?> tratarRegraDaAplicacao(RuntimeException e) {
+        return ResponseEntity.badRequest().body(e.getMessage());
+    }
 }
